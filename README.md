@@ -65,13 +65,18 @@ All project screenshots are stored in the [`screenshot/`](screenshot/) folder.
 
 ![Login and registration](screenshot/02-login-and-registration.png)
 
-![User dashboard](screenshot/03-user-dashboard.jpe)
 
-### Threat intelligence and administration
+### Admin Dashboard
+
+![User dashboard](screenshot/03-user-dashboard.jpe)
 
 ![Threat dashboard](screenshot/04-threat-dashboard.png)
 
+### User Dashboard
+
 ![Admin dashboard](screenshot/05-admin-dashboard.jpe)
+
+### Threat Email Notification
 
 ![Threat notification email](screenshot/06-threat-notification.png)
 
@@ -131,40 +136,6 @@ All project screenshots are stored in the [`screenshot/`](screenshot/) folder.
 - Optional: SMTP app password for email notifications
 - Optional: Linux/Kali VM for synchronized enforcement
 
-### 1. Configure the backend
-
-```powershell
-cd backend
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-Copy-Item .env.example .env
-```
-
-Edit `backend/.env` and provide the values required for your environment. At minimum, set a strong `SECRET_KEY` and `DEFAULT_ADMIN_PASSWORD`. Add OTX, Gemini, and mail settings only when you use those integrations.
-
-Initialize the database:
-
-```powershell
-flask db upgrade
-```
-
-### 2. Configure the frontend
-
-Open a second terminal:
-
-```powershell
-cd frontend
-Copy-Item .env.example .env
-npm ci
-```
-
-The frontend example configuration uses:
-
-```text
-REACT_APP_API_ORIGIN=http://127.0.0.1:5000
-```
 
 ## Running the platform
 
@@ -245,28 +216,6 @@ To start only the frontend:
 docker compose up --build frontend
 ```
 
-Review [docker-compose.yml](docker-compose.yml) and the deployment documentation before using containers for enforcement workloads.
-
-## Validation
-
-Backend checks:
-
-```powershell
-cd backend
-ruff check .
-black --check .
-python -m compileall -q .
-```
-
-Frontend checks:
-
-```powershell
-cd frontend
-$env:CI="true"
-npm run build
-```
-
-GitHub Actions runs these checks automatically for pushes and pull requests. See [ci.yml](.github/workflows/ci.yml).
 
 ## Project structure
 
@@ -304,10 +253,6 @@ The [readme/](readme/) directory contains focused guides for:
 - [Testing](readme/QUICK_START_TESTING.md)
 - [System workflow](readme/SYSTEM_WORKFLOW.md)
 - [Technical architecture](readme/TECHNICAL_ARCHITECTURE.md)
-
-## License
-
-Add the project license that applies to your intended distribution before publishing a release.
 
 ## IJERT Acceptance
 
