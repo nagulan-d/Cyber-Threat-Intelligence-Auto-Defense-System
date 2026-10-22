@@ -63,7 +63,7 @@ def main():
     with open(master_ref_path, 'w', encoding='utf-8') as f:
         f.write(content)
     
-    print(f"\n✅ All documentation embedded into PROJECT_MASTER_REFERENCE.md")
+    print("\n✅ All documentation embedded into PROJECT_MASTER_REFERENCE.md")
     print(f"📊 Final file size: {len(content):,} characters")
 
 if __name__ == '__main__':

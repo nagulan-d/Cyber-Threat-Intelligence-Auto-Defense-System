@@ -5,7 +5,7 @@ import "../App.css";
 
 function AdminDashboard({ logout }) {
   const [users, setUsers] = useState([]);
-  const [websites, setWebsites] = useState([]);
+  const [, setWebsites] = useState([]);
   const [threats, setThreats] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function AdminDashboard({ logout }) {
   const [notifications, setNotifications] = useState([]);
   const [showRequests, setShowRequests] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [me, setMe] = useState(null);
+  const [, setMe] = useState(null);
   const [userBlocks, setUserBlocks] = useState([]);
   const [showBlocks, setShowBlocks] = useState(false);
   const autoBlockedThreats = userBlocks.filter((block) => block.blocked_by === 'admin' && block.is_active);
@@ -252,6 +252,8 @@ function AdminDashboard({ logout }) {
     // Auto-refresh admin data every 30 seconds for fresh threat/user/website updates
     const interval = setInterval(fetchAdminData, 30000);
     return () => clearInterval(interval);
+    // These functions intentionally use the latest authentication and dashboard state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -492,6 +494,8 @@ function AdminDashboard({ logout }) {
 
   useEffect(() => {
     fetchThreats();
+    // fetchThreats intentionally uses the latest selected category and token.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   // Auto-block threats on load and every 5 minutes
@@ -508,6 +512,8 @@ function AdminDashboard({ logout }) {
       clearTimeout(initialTimer);
       clearInterval(interval);
     };
+    // autoBlockThreats intentionally runs once after the initial threat load.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

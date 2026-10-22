@@ -9,6 +9,8 @@ function BlockedThreats() {
 
   useEffect(() => {
     fetchBlockedThreats();
+    // Fetch uses the latest history filter and is intentionally recreated.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showHistory]);
 
   const fetchBlockedThreats = async () => {

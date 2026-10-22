@@ -1,14 +1,17 @@
-import google.generativeai as genai
-import re
 import random
+import re
+
+import google.generativeai as genai
 
 client = None
+
 
 def init_client(api_key):
     """Initialize Gemini client"""
     global client
     genai.configure(api_key=api_key)
     client = genai.GenerativeModel("gemini-1.5-flash")
+
 
 def score_threat(indicator, pulse_title=""):
     """Generate a numeric risk score for the given indicator using Gemini"""
@@ -40,6 +43,7 @@ def score_threat(indicator, pulse_title=""):
     except Exception:
         # If Gemini API fails → fallback
         return heuristic_score(indicator, pulse_title)
+
 
 def heuristic_score(indicator, pulse_title=""):
     """

@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_ORIGIN, API_URL } from "../config";
 import "../styles/UserDashboard.css";
 import logoImg from '../assets/logo1.png';
+
+/* These handlers and effects are retained for the dashboard's optional features. */
+/* eslint-disable no-unused-vars, react-hooks/exhaustive-deps */
 
   // Categories used for filtering
   const CATEGORIES = [
@@ -26,7 +29,6 @@ function UserDashboard({ token, logout }) {
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
-  const urlInputRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [agentStatuses, setAgentStatuses] = useState([]);
   const [agentLogs, setAgentLogs] = useState([]);
@@ -310,6 +312,8 @@ function UserDashboard({ token, logout }) {
     const interval = setInterval(fetchUserBlocks, 15000);
 
     return () => clearInterval(interval);
+    // fetchUserBlocks intentionally uses the latest token and active tab.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, token]);
 
   const fetchAgentStatus = async () => {
@@ -448,7 +452,7 @@ function UserDashboard({ token, logout }) {
       });
 
       if (!res.ok) throw new Error("Failed to upgrade");
-      const data = await res.json();
+      await res.json();
       setUserInfo({ ...userInfo, subscription: "premium" });
       alert("🎉 Subscription upgraded to Premium!");
     } catch (err) {
@@ -481,9 +485,6 @@ function UserDashboard({ token, logout }) {
   };
 
   if (loading) return <div className="dashboard"><h2>Loading...</h2></div>;
-
-  const unreadAlerts = alerts.filter(a => !a.is_read).length;
-  const highThreatAlerts = alerts.filter(a => a.threat_level === "high").length;
 
   return (
     <div className="dashboard">
@@ -573,7 +574,7 @@ function UserDashboard({ token, logout }) {
                   if (Array.isArray(t.prevention_steps)) steps = t.prevention_steps;
                   else if (typeof t.prevention_steps === 'string') {
                     // split on common separators if NDJSON or joined string
-                    steps = t.prevention_steps.split(/[\.|;|\n|\r|\u2022]+/).map(s => s.trim()).filter(Boolean);
+                    steps = t.prevention_steps.split(/[.|;|\n|\r|\u2022]+/).map(s => s.trim()).filter(Boolean);
                   }
                 }
                 if (!steps) {

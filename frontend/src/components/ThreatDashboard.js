@@ -6,7 +6,7 @@ import "../App.css";
 function ThreatDashboard({ logout }) {
   const [threats, setThreats] = useState([]);
   const [users, setUsers] = useState([]);
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [token] = useState(localStorage.getItem("token") || "");
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);

@@ -1,7 +1,5 @@
 import google.generativeai as genai
 
-import google.generativeai as genai
-
 client = None
 
 
@@ -41,29 +39,32 @@ def get_prevention_hint(indicator_type: str) -> str:
         if "cve" in t:
             return {
                 "prevention": "Check vendor advisories and apply patches.",
-                "steps": "1) Identify affected software 2) Apply vendor patches 3) Verify via scanning"
+                "steps": "1) Identify affected software 2) Apply vendor patches 3) Verify via scanning",
             }
         if t in ("ipv4", "ip", "ip address"):
             return {
                 "prevention": "Block or monitor connections from this IP and check logs.",
-                "steps": "1) Add firewall rule to block IP 2) Check access logs 3) Create IDS rule to monitor traffic"
+                "steps": "1) Add firewall rule to block IP 2) Check access logs 3) Create IDS rule to monitor traffic",
             }
         if t in ("url", "domain"):
             return {
                 "prevention": "Block the domain/URL and investigate referrals.",
-                "steps": "1) Add URL/domain to blocklist 2) Remove malicious content 3) Scan inbound emails and referrals"
+                "steps": "1) Add URL/domain to blocklist 2) Remove malicious content 3) Scan inbound emails and referrals",
             }
         if "filehash" in t or "sha" in t or "md5" in t:
             return {
                 "prevention": "Quarantine the file and scan endpoints for related activity.",
-                "steps": "1) Isolate affected host 2) Remove/quarantine file 3) Run full endpoint scans and update AV signatures"
+                "steps": "1) Isolate affected host 2) Remove/quarantine file 3) Run full endpoint scans and update AV signatures",
             }
         return {
             "prevention": _action_hint(indicator_type),
-            "steps": "Investigate and apply standard detection/containment steps."
+            "steps": "Investigate and apply standard detection/containment steps.",
         }
     except Exception:
-        return {"prevention": "Investigate and apply containment steps.", "steps": "Investigate and contain."}
+        return {
+            "prevention": "Investigate and apply containment steps.",
+            "steps": "Investigate and contain.",
+        }
 
 
 def summarize_threat(indicator, pulse_title="Unknown Threat"):

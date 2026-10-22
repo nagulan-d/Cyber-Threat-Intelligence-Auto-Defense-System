@@ -25,6 +25,8 @@ function AdminBlockManagement() {
 
   useEffect(() => {
     fetchData();
+    // fetchData is intentionally recreated with the active filter state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   const fetchData = async () => {
