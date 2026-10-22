@@ -8,25 +8,6 @@
 
 ThreatGuard is a full-stack cyber threat intelligence and automated defense platform. It collects threat indicators, enriches and scores them, presents actionable intelligence in a React dashboard, and can synchronize high-risk IP blocks across a Windows host and a Linux/Kali enforcement agent.
 
-> **Security notice:** Never commit `.env` files, databases, API keys, SMTP passwords, JWT secrets, VM tokens, or private keys. Use the example environment files as templates and inject real values locally or through deployment secrets.
-
-## Contents
-
-- [What the project does](#what-the-project-does)
-- [Key features](#key-features)
-- [Screenshots](#screenshots)
-- [Architecture](#architecture)
-- [Technology stack](#technology-stack)
-- [Quick start](#quick-start)
-- [Configuration](#configuration)
-- [Running the platform](#running-the-platform)
-- [Automated IP defense](#automated-ip-defense)
-- [Docker](#docker)
-- [Validation](#validation)
-- [Project structure](#project-structure)
-- [Documentation](#documentation)
-- [Security](#security)
-
 ## What the project does
 
 ThreatGuard connects threat intelligence, risk analysis, user notifications, and defensive enforcement in one workflow:
@@ -76,32 +57,29 @@ ThreatGuard connects threat intelligence, risk analysis, user notifications, and
 
 ## Screenshots
 
-### Login experience
+All project screenshots are stored in the [`screenshot/`](screenshot/) folder.
 
-The repository includes the current login animation:
+### Authentication and user experience
 
-![ThreatGuard login experience](frontend/src/assets/loginpage.gif)
+![Authentication screens](screenshot/01-authentication-screen.jpe)
 
-### Dashboard screenshots
+![Login and registration](screenshot/02-login-and-registration.png)
 
-Add dashboard captures to `readme/assets/` and reference them here when available:
+![User dashboard](screenshot/03-user-dashboard.jpe)
 
-```text
-readme/assets/admin-dashboard.png
-readme/assets/threat-details.png
-readme/assets/block-management.png
-readme/assets/user-dashboard.png
-```
+### Threat intelligence and administration
 
-Recommended screenshots for a project presentation:
+![Threat dashboard](screenshot/04-threat-dashboard.png)
 
-| Screenshot | What to show |
-|---|---|
-| Admin dashboard | Threat counts, risk distribution, and recent alerts |
-| Threat details | Indicator metadata, score, category, and mitigation guidance |
-| Block management | Active blocks, action history, and unblock controls |
-| User dashboard | Notifications, subscription status, and user blocks |
-| VM enforcement | Synchronized block status from the Linux/Kali agent |
+![Admin dashboard](screenshot/05-admin-dashboard.jpe)
+
+![Threat notification email](screenshot/06-threat-notification.png)
+
+### Automated defense
+
+![Windows Firewall block](screenshot/07-windows-firewall-block.png)
+
+![Kali agent blocking logs](screenshot/08-kali-agent-log.png)
 
 ## Architecture
 
@@ -153,14 +131,7 @@ Recommended screenshots for a project presentation:
 - Optional: SMTP app password for email notifications
 - Optional: Linux/Kali VM for synchronized enforcement
 
-### 1. Clone the repository
-
-```powershell
-git clone https://github.com/nagulan-d/Cyber-Threat-Intelligence-Auto-Defense-System.git
-cd Cyber-Threat-Intelligence-Auto-Defense-System
-```
-
-### 2. Configure the backend
+### 1. Configure the backend
 
 ```powershell
 cd backend
@@ -179,7 +150,7 @@ Initialize the database:
 flask db upgrade
 ```
 
-### 3. Configure the frontend
+### 2. Configure the frontend
 
 Open a second terminal:
 
@@ -235,28 +206,6 @@ The repository also includes `backend/start_all_services.ps1` and `backend/START
 ### First login
 
 Use the administrator username and password configured through environment variables. Do not use a shared or documented production password.
-
-## Configuration
-
-Copy the templates before adding local values:
-
-| File | Purpose |
-|---|---|
-| [backend/.env.example](backend/.env.example) | Main Flask, mail, OTX, Gemini, and auto-blocking settings |
-| [backend/.env.blocking-sync.example](backend/.env.blocking-sync.example) | Windows-to-Linux/Kali synchronization settings |
-| [frontend/.env.example](frontend/.env.example) | React API origin |
-
-Common settings include:
-
-```text
-SECRET_KEY=generate-a-long-random-value
-DEFAULT_ADMIN_PASSWORD=generate-a-unique-password
-API_KEY=your_otx_api_key
-GEMINI_API_KEY=your_gemini_api_key
-BLOCKING_API_TOKEN=generate-a-unique-token
-```
-
-Keep all real values in local `.env` files or a secret manager. The `.gitignore` rules exclude local environments, databases, tokens, logs, and generated output.
 
 ## Automated IP defense
 
@@ -356,26 +305,12 @@ The [readme/](readme/) directory contains focused guides for:
 - [System workflow](readme/SYSTEM_WORKFLOW.md)
 - [Technical architecture](readme/TECHNICAL_ARCHITECTURE.md)
 
-## Security
-
-Before publishing or deploying:
-
-- Rotate any credential that may have appeared in an earlier local copy or Git history.
-- Use unique, strong values for all secrets and administrator passwords.
-- Never commit `.env`, database, token, certificate, or private-key files.
-- Run the application with only the permissions it needs.
-- Restrict VM synchronization endpoints to trusted networks.
-- Keep Windows Firewall and Linux/Kali enforcement hosts patched.
-- Review logs for failed authentication and synchronization attempts.
-
-## Contributing
-
-1. Create a feature branch.
-2. Make focused changes.
-3. Run the backend and frontend validation commands.
-4. Confirm no secrets or generated databases are staged.
-5. Open a pull request with a concise description and screenshots for UI changes.
-
 ## License
 
 Add the project license that applies to your intended distribution before publishing a release.
+
+## IJERT Acceptance
+
+The project paper **Cyber Threat Alert and Auto-Defense System** was accepted by IJERT.
+
+![IJERT paper acceptance](screenshot/ijert-acceptance-letter.png)
